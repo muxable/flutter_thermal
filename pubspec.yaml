@@ -1,5 +1,5 @@
 name: thermal
-description: Flutter plugin for accessing the device's thermal state.
+description: Flutter plugin for accessing the device's thermal state to detect if the device is undergoing thermal throttling.
 repository: https://github.com/muxable/flutter_thermal
 version: 1.0.0
 homepage:
