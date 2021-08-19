@@ -15,7 +15,7 @@ import 'package:thermal/thermal.dart';
 // Instantiate it
 var _thermal = Thermal();
 
-// Access current battery level
+// Access current thermal status
 print(await _thermal.thermalStatus);
 
 // Be informed when the status changes
