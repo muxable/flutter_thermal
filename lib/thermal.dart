@@ -57,7 +57,7 @@ class Thermal {
 
   /// Retrieves the [ThermalStatus] of the device.
   Stream<ThermalStatus> get onThermalStatusChanged async* {
-    yield await this.thermalStatus;
+    yield await thermalStatus;
     yield* _eventChannel
         .receiveBroadcastStream()
         .map((dynamic status) => _parseThermalStatus(status));

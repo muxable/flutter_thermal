@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thermal/thermal.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
