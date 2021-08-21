@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -66,7 +67,10 @@ class Thermal {
   }
 
   /// Retrieves the battery temperature in Celsius. Android only.
-  Stream<double> get onBatteryTemperatureChanged {
-    return _batteryTemperatureChannel.receiveBroadcastStream().cast();
+  Stream<double> get onBatteryTemperatureChanged async* {
+    if (!Platform.isAndroid) {
+      return;
+    }
+    yield* _batteryTemperatureChannel.receiveBroadcastStream().cast();
   }
 }
