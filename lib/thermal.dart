@@ -28,6 +28,8 @@ enum ThermalStatus {
 
 class Thermal {
   static const _eventChannel = EventChannel('thermal/events');
+  static const _batteryTemperatureChannel =
+      EventChannel('thermal/battery_temp/events');
   static const _methodChannel = MethodChannel('thermal');
 
   static _parseThermalStatus(dynamic status) {
@@ -61,5 +63,10 @@ class Thermal {
     yield* _eventChannel
         .receiveBroadcastStream()
         .map((dynamic status) => _parseThermalStatus(status));
+  }
+
+  /// Retrieves the battery temperature in Celsius. Android only.
+  Stream<double> get onBatteryTemperatureChanged {
+    return _batteryTemperatureChannel.receiveBroadcastStream().cast();
   }
 }

@@ -26,6 +26,11 @@ class App extends StatelessWidget {
                 stream: Thermal().onThermalStatusChanged,
                 builder: (context, snapshot) {
                   return Text("Live thermal status: ${snapshot.data}");
+                }),
+            StreamBuilder<double>(
+                stream: Thermal().onBatteryTemperatureChanged,
+                builder: (context, snapshot) {
+                  return Text("Battery temperature: ${snapshot.data}°C");
                 })
           ]),
         ),
