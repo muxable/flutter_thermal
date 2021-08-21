@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Fix error on iOS.
+
 ## 1.1.0
 
 - Add battery temperature for Android.
