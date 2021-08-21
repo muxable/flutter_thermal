@@ -8,7 +8,7 @@ To use this plugin, add `thermal` as a [dependency in your pubspec.yaml file](ht
 
 ### Example
 
-``` dart
+```dart
 // Import package
 import 'package:thermal/thermal.dart';
 
@@ -21,5 +21,10 @@ print(await _thermal.thermalStatus);
 // Be informed when the status changes
 _thermal.onThermalStatusChanged.listen((ThermalStatus state) {
   // Do something with new status
+});
+
+// Watch the battery temperature
+_thermal.onBatteryTemperatureChanged.listen((double temperature) {
+  // Do something wth the temperature
 });
 ```

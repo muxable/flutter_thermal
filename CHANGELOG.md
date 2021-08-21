@@ -1,3 +1,7 @@
+## 1.1.3
+
+- Update README.
+
 ## 1.1.2
 
 - Fix error on iOS.
