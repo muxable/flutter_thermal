@@ -9,7 +9,7 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     self.sink = events
     NotificationCenter.default.addObserver(
       self,
-      selector: Selector(("onThermalStateChanged")),
+      selector: #selector(onThermalStateChanged(_:)),
       name: ProcessInfo.thermalStateDidChangeNotification,
       object: nil)
     return nil
@@ -45,7 +45,7 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
   
-  public func onThermalStateChanged() {
+  @objc public func onThermalStateChanged(_ notification: Notification) {
     if let events = self.sink {
       events(SwiftThermalPlugin.toChannelValue(state: ProcessInfo.processInfo.thermalState))
     }
