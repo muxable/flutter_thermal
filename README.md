@@ -4,7 +4,7 @@
 
 ## Usage
 
-To use this plugin, add `thermal` as a [dependency in your pubspec.yaml file](https://flutter.dev/docs/development/platform-integration/platform-channels).
+To use this plugin, add `thermal` as a [dependency in your pubspec.yaml file](https://docs.flutter.dev/packages-and-plugins/using-packages).
 
 ### Example
 
