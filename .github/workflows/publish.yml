@@ -31,6 +31,11 @@ jobs:
         run: |
           if [[ "${{ matrix.package-manager }}" == "spm" ]]; then
             flutter config --enable-swift-package-manager
+            pushd example/ios
+            pod deintegrate
+            perl -0pi -e 's/^#include\\? "Pods\\/Target Support Files\\/Pods-Runner\\/Pods-Runner\\.debug\\.xcconfig"\\n//m' Flutter/Debug.xcconfig
+            perl -0pi -e 's/^#include\\? "Pods\\/Target Support Files\\/Pods-Runner\\/Pods-Runner\\.release\\.xcconfig"\\n//m' Flutter/Release.xcconfig
+            popd
           else
             flutter config --no-enable-swift-package-manager
           fi
