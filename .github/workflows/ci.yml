@@ -50,6 +50,7 @@ jobs:
             mv Flutter/Debug.xcconfig.tmp Flutter/Debug.xcconfig
             grep -v 'Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig' Flutter/Release.xcconfig > Flutter/Release.xcconfig.tmp
             mv Flutter/Release.xcconfig.tmp Flutter/Release.xcconfig
+            rm -f Podfile Podfile.lock
             popd
           else
             flutter config --no-enable-swift-package-manager
