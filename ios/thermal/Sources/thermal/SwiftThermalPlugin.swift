@@ -4,7 +4,7 @@ import UIKit
 @available(iOS 11.0, *)
 public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   var sink: FlutterEventSink?
-  
+
   public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
     self.sink = events
     NotificationCenter.default.addObserver(
@@ -14,22 +14,21 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
       object: nil)
     return nil
   }
-  
+
   public func onCancel(withArguments arguments: Any?) -> FlutterError? {
     self.sink = nil
     return nil
   }
-  
+
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch (call.method) {
     case "getThermalStatus":
       result(SwiftThermalPlugin.toChannelValue(state: ProcessInfo.processInfo.thermalState))
-      break
     default:
       result(FlutterMethodNotImplemented)
     }
   }
-  
+
   private static func toChannelValue(state: ProcessInfo.ThermalState) -> Int {
     switch state {
     case ProcessInfo.ThermalState.nominal:
@@ -44,13 +43,13 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
       return 0
     }
   }
-  
+
   @objc public func onThermalStateChanged(_ notification: Notification) {
     if let events = self.sink {
       events(SwiftThermalPlugin.toChannelValue(state: ProcessInfo.processInfo.thermalState))
     }
   }
-  
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let eventChannel = FlutterEventChannel(name: "thermal/events", binaryMessenger: registrar.messenger())
     let methodChannel = FlutterMethodChannel(name: "thermal", binaryMessenger: registrar.messenger())
