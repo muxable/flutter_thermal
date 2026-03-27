@@ -46,8 +46,10 @@ jobs:
             flutter config --enable-swift-package-manager
             pushd example/ios
             pod deintegrate
-            perl -0pi -e 's/^#include\\? "Pods\\/Target Support Files\\/Pods-Runner\\/Pods-Runner\\.debug\\.xcconfig"\\n//m' Flutter/Debug.xcconfig
-            perl -0pi -e 's/^#include\\? "Pods\\/Target Support Files\\/Pods-Runner\\/Pods-Runner\\.release\\.xcconfig"\\n//m' Flutter/Release.xcconfig
+            grep -v 'Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig' Flutter/Debug.xcconfig > Flutter/Debug.xcconfig.tmp
+            mv Flutter/Debug.xcconfig.tmp Flutter/Debug.xcconfig
+            grep -v 'Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig' Flutter/Release.xcconfig > Flutter/Release.xcconfig.tmp
+            mv Flutter/Release.xcconfig.tmp Flutter/Release.xcconfig
             popd
           else
             flutter config --no-enable-swift-package-manager
