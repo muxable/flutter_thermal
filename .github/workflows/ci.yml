@@ -40,6 +40,18 @@ jobs:
       - name: Accept Xcode license
         run: sudo xcodebuild -license accept
       - name: Verify iOS integration
-        env:
-          FLUTTER_BIN: flutter
-        run: ./tool/verify_ios_package_manager.sh ${{ matrix.package-manager }}
+        shell: bash
+        run: |
+          if [[ "${{ matrix.package-manager }}" == "spm" ]]; then
+            flutter config --enable-swift-package-manager
+          else
+            flutter config --no-enable-swift-package-manager
+          fi
+
+          flutter pub get
+          pushd example
+          rm -rf ios/Pods ios/.symlinks ios/Flutter/ephemeral ios/Flutter/Generated.xcconfig ios/Flutter/flutter_export_environment.sh
+          flutter clean
+          flutter pub get
+          flutter build ios --simulator --debug
+          popd
