@@ -24,4 +24,4 @@ flutter:
         package: com.muxable.flutter.thermal
         pluginClass: ThermalPlugin
       ios:
-        pluginClass: ThermalPlugin
+        pluginClass: SwiftThermalPlugin
