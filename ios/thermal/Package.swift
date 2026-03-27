@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "thermal",
     platforms: [
-        .iOS("11.0")
+        .iOS("13.0")
     ],
     products: [
         .library(name: "thermal", targets: ["thermal"])
