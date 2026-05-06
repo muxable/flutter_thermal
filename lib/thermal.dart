@@ -1,3 +1,7 @@
+/// Flutter plugin for accessing the device's thermal state to detect if the
+/// device is undergoing thermal throttling.
+library thermal;
+
 import 'dart:async';
 import 'dart:io';
 
@@ -27,13 +31,17 @@ enum ThermalStatus {
   shutdown
 }
 
+/// Provides access to the device's thermal state.
 class Thermal {
+  /// Creates a [Thermal] instance for querying device thermal state.
+  Thermal();
+
   static const _eventChannel = EventChannel('thermal/events');
   static const _batteryTemperatureChannel =
       EventChannel('thermal/battery_temp/events');
   static const _methodChannel = MethodChannel('thermal');
 
-  static _parseThermalStatus(dynamic status) {
+  static ThermalStatus _parseThermalStatus(dynamic status) {
     switch (status) {
       case 1:
         return ThermalStatus.light;
@@ -52,13 +60,14 @@ class Thermal {
     }
   }
 
+  /// Retrieves the current [ThermalStatus] of the device.
   Future<ThermalStatus> get thermalStatus {
     return _methodChannel
         .invokeMethod("getThermalStatus")
         .then((dynamic status) => _parseThermalStatus(status));
   }
 
-  /// Retrieves the [ThermalStatus] of the device.
+  /// A stream of [ThermalStatus] updates as the device's thermal state changes.
   Stream<ThermalStatus> get onThermalStatusChanged async* {
     yield await thermalStatus;
     yield* _eventChannel
