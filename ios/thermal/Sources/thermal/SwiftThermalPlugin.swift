@@ -16,6 +16,10 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   }
 
   public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    NotificationCenter.default.removeObserver(
+      self,
+      name: ProcessInfo.thermalStateDidChangeNotification,
+      object: nil)
     self.sink = nil
     return nil
   }
@@ -45,8 +49,11 @@ public class SwiftThermalPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   }
 
   @objc public func onThermalStateChanged(_ notification: Notification) {
-    if let events = self.sink {
-      events(SwiftThermalPlugin.toChannelValue(state: ProcessInfo.processInfo.thermalState))
+    guard let events = self.sink else { return }
+    let value = SwiftThermalPlugin.toChannelValue(state: ProcessInfo.processInfo.thermalState)
+    DispatchQueue.main.async { [weak self] in
+      guard self?.sink != nil else { return }
+      events(value)
     }
   }
 
