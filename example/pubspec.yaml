@@ -24,6 +24,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # Material widgets (package:flutter/material.dart is deprecated from Flutter 3.47).
+  material_ui: ^1.11.0
+
 dev_dependencies:
   flutter_lints: ^1.0.4
   flutter_test:
